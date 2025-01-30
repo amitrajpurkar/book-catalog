@@ -7,12 +7,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
-    // private static Map<String, String> book = new HashMap<>();
-    // private static List<Map> catalog = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println(App.greetWorld());
 
+        System.out.println("\n\n--BEGIN---------");
         List<Map<String, String>> catalog = loadResetCatalog();
         printBookCatalog(catalog);
         System.out.println("\n\n-----------");
