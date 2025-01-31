@@ -6,8 +6,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/*
+ * a Single class that houses the concept of Book Catalog management
+ * it has all relevant service functions and datamodels all encompassed
+ * the reason for not modularizing the functions into packages, model-classes, 
+ * service classes is because the free version of Replit only allows 
+ * a single Main.java to run on its platform
+ */
 public class Main {
 
+    /**
+     * the main method provides the interface to interact with User
+     * This method provides the main menu
+     * user can select one choice from the menu
+     * user can re-run his/ her choices as many times, toggle between choices as well
+     * user can exter a key-word exit to break out of loop and stop the program
+     * This method calls appropriate functions based on the menu selected by user
+     * @param args
+     */
     public static void main(String[] args) {
 
         System.out.println("\n\n--BEGIN---------");
@@ -38,6 +54,21 @@ public class Main {
         }
     }
 
+    /**
+     * this method takes current catalog and a handle to the keyboard-reader
+     * it asks the use which book is to be lend, to whom, when its lended, when are you expecting back
+     * it also checks that you only lend the books that you own and not the books that you borrowed
+     * 
+     * user can lend one book for one call to this method
+     * 
+     * Note that the method explicitly takes parameters and return back the catalog
+     * The method does not act on Class-variables or static class members
+     * This is coded for testability; so that unit test classes can test different scenarios for the lend-method
+     * 
+     * @param catalog
+     * @param kbReader
+     * @return an updated catalog back
+     */
     private static List<Map<String, String>> lendBookFromCatalog(List<Map<String, String>> catalog, Scanner kbReader) {
         System.out.print("\n book title: ");
         String title = kbReader.nextLine();
@@ -66,6 +97,15 @@ public class Main {
         return catalog;
     }
 
+    /**
+     * this method provides interaction with user to add one book borrowed from library or person into the catalog
+     * user can only add one book for one call to this method
+     * user will have to return to main menu to add more books
+     * 
+     * @param catalog
+     * @param kbReader
+     * @return an updated catalog back
+     */
     private static List<Map<String, String>> addBorrowedBookToCatalog(List<Map<String, String>> catalog, Scanner kbReader) {
         System.out.print("\n book title: ");
         String title = kbReader.nextLine();
@@ -102,6 +142,14 @@ public class Main {
         return catalog;
     }
 
+    /**
+     * this method provides interaction with user of add one book purchased by self into the catalog
+     * user can add one book at a time and return to main menu
+     * 
+     * @param catalog
+     * @param kbReader
+     * @return an updated catalog
+     */
     private static List<Map<String, String>> addNewBookToCatalog(List<Map<String, String>> catalog, Scanner kbReader) {
         System.out.print("\n for the book you bought, enter the book title: ");
         String title = kbReader.nextLine();
@@ -129,6 +177,15 @@ public class Main {
         return catalog;
     }
 
+    /**
+     * This method aims to print the book catalog supplied to it
+     * the method attempts to print one header line
+     * and then print one book per line
+     * for each book it prints comma separated parameters in sequence of header
+     * the method prints the output on console
+     * 
+     * @param catalog
+     */
     private static void printBookCatalog(List<Map<String, String>> catalog) {
         Map<String, String> prntBk;
         StringBuilder hdr = new StringBuilder();
@@ -172,6 +229,14 @@ public class Main {
         // throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * this method intends to load or make available a default set of four books in the book catalog
+     * this ideally can be fetched from a persistant storage.
+     * Also the method makes use of List and Map classes. This can be instead defined as a data-structure with properties and functions
+     * restrictions of free version of Replit enforces this style of defining Book objects and collecting the books in a list
+     * 
+     * @return a List of "Book" HashMap
+     */
     private static List<Map<String, String>> loadResetCatalog(){
         List<Map<String, String>> catalog = new ArrayList<>();
         Map<String, String> book = new HashMap<>();
