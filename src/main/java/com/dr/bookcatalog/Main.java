@@ -28,6 +28,7 @@ public class Main {
 
         System.out.println("\n\n--BEGIN---------");
         List<Map<String, String>> catalog = loadResetCatalog();
+        // printBookCatalog(catalog);
         printCatalogInTable(catalog);
         System.out.println("\n\n-----------");
 
@@ -42,17 +43,25 @@ public class Main {
                 System.out.println("To exit, enter 6.");
                 int choice = kbReader.nextInt();
                 switch (choice) {
-                    case 1 -> addNewBookToCatalog(catalog, kbReader);
-                    case 2 -> addBorrowedBookToCatalog(catalog, kbReader);
-                    case 3 -> lendBookFromCatalog(catalog, kbReader);
-                    case 4 -> System.out.println("to be implemented");  //removeBookFromCatalog(catalog, kbReader);
-                    case 5 -> printBookCatalog(catalog);
+                    case 1 -> catalog = addNewBookToCatalog(catalog, kbReader);
+                    case 2 -> catalog = addBorrowedBookToCatalog(catalog, kbReader);
+                    case 3 -> catalog = lendBookFromCatalog(catalog, kbReader);
+                    case 4 -> catalog = removeBookFromCatalog(catalog, kbReader);
+                    case 5 -> printCatalogInTable(catalog);
                     case 6 -> exit_entered = Boolean.TRUE;
                     default -> System.out.println("Invalid choice");
                 }
             }
             System.out.println("\n\n---BYE BYE--------");
         }
+    }
+
+    private static List<Map<String, String>> removeBookFromCatalog(List<Map<String, String>> catalog, Scanner kbReader) {
+        System.out.print("\n book title: ");
+        String title = kbReader.nextLine();
+
+        catalog.removeIf(bk -> bk.get("1.title").equals(title));
+        return catalog;
     }
 
     /**
