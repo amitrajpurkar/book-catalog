@@ -28,7 +28,7 @@ public class Main {
 
         System.out.println("\n\n--BEGIN---------");
         List<Map<String, String>> catalog = loadResetCatalog();
-        printBookCatalog(catalog);
+        printCatalogInTable(catalog);
         System.out.println("\n\n-----------");
 
         boolean exit_entered = Boolean.FALSE;
@@ -48,6 +48,7 @@ public class Main {
                     case 4 -> System.out.println("to be implemented");  //removeBookFromCatalog(catalog, kbReader);
                     case 5 -> printBookCatalog(catalog);
                     case 6 -> exit_entered = Boolean.TRUE;
+                    default -> System.out.println("Invalid choice");
                 }
             }
             System.out.println("\n\n---BYE BYE--------");
@@ -184,6 +185,10 @@ public class Main {
      * for each book it prints comma separated parameters in sequence of header
      * the method prints the output on console
      * 
+     * https://www.baeldung.com/java-console-ascii-make-table
+     * https://stackoverflow.com/questions/15215326/how-can-i-create-table-using-ascii-in-a-console
+     * https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Java-print-table-format-printf-chart-console-scanner-println-line
+     * 
      * @param catalog
      */
     private static void printBookCatalog(List<Map<String, String>> catalog) {
@@ -227,6 +232,35 @@ public class Main {
         }
 
         // throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * this is second attempt at print book catalog
+     * it is using ascii table format
+     * 
+     * https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Java-print-table-format-printf-chart-console-scanner-println-line
+     * @param catalog
+     */
+    private static void printCatalogInTable(List<Map<String, String>> catalog) {
+        // -----------------  30 chars  -------------------+--20----------------+--10------+--15-----------+--12--------+--12--------+--15-----------+
+        String separator = "+--------------------------------+----------------------+------------+-----------------+--------------+--------------+-----------------+";
+        String formatString = "| %-30s | %-20s | %-10s | %-15s | %-12s | %-12s | %-15s |%n";
+        System.out.println(separator);
+        System.out.format(formatString, "title", "author", "owner", "libBranch", "borrowedOn", "dueDate", "lendTo");
+        System.out.println(separator);
+        for (Map<String, String> bk : catalog) {
+            System.out.format(formatString, 
+                bk.get("1.title").substring(0, bk.get("1.title").length()>30?30:bk.get("1.title").length()), 
+                bk.get("2.author").substring(0, bk.get("2.author").length()>20?20:bk.get("2.author").length()), 
+                bk.get("3.owner").substring(0, bk.get("3.owner").length()>10?10:bk.get("3.owner").length()), 
+                bk.get("4.libBranch").substring(0, bk.get("4.libBranch").length()>15?15:bk.get("4.libBranch").length()), 
+                bk.get("5.borrowedOn").substring(0, bk.get("5.borrowedOn").length()>12?12:bk.get("5.borrowedOn").length()), 
+                bk.get("6.dueDate").substring(0, bk.get("6.dueDate").length()>12?13:bk.get("6.dueDate").length()), 
+                bk.get("7.lendTo").substring(0, bk.get("7.lendTo").length()>15?15:bk.get("7.lendTo").length())
+            );
+            
+        }
+        System.out.println(separator);
     }
 
     /**
